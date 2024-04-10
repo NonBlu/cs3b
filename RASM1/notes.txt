@@ -1,0 +1,4 @@
+A 64-bit signed integer has range of -9223372036854775808 to -9223372036854775807
+Do not need an overflow flag
+Output address of number in addition for extra credit
+Data directive to store 8 bytes: .quad

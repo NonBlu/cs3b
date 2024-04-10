@@ -1,0 +1,31 @@
+LINUX COMMANDS
+
+//sudo = super user
+
+sudo shutdown [] now | halt [-H], poweroff [-P] or reboot machine [-R]
+
+cd | says what directory i am in
+cd .. | go back one directory
+lsb_release -a | what os version you are using
+groups | what groups you are in
+pwd | print directory
+
+as -g -o [name of file].o [name of file].s | assemble program
+ld -o [name] [name].o ../obj/[functionname].o | link object file
+
+gdb ./[file] | Starts GDB process
+
+objdump -s -d [file].o | Displays a bunch of hex stuff i think
+GEF COMMANDS
+============================
+quit | exit
+entry-break | executes file 
+
+i r $x1
+x/12xb
+x/12xb 0x4100d8
+Number of bytes xb <address>
+//shows address contents
+x/13xs 0x4100d8
+Number of bytes xs <address>
+//shows string contents
