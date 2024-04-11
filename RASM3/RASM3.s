@@ -1,3 +1,9 @@
+//================================================================================
+//Programmer: Aiden Sallows, Spencer Glenn
+//RASM3
+//Purpose: Contains a series of test cases to exhibit a number of string functions
+//Date Last Modified: April 11th, 2024
+//================================================================================
     .global _start
 
     .equ MAX_LEN, 20 //const, used for getstring
@@ -20,6 +26,8 @@ szPrompt3:     .asciz "Enter String 3:"
 szTrue:               .asciz "TRUE\n"
 szFalse:              .asciz "FALSE\n"
 szFAIL:               .asciz "FAIL\n"
+szStudentInfo:        .asciz "Name: Aiden Sallows, Spencer Glenn\nClass: CS 3B\nLab: RASM3\nDate: 4/11/2024\n\n" 
+
 szOutputStrLngth1:    .asciz "s1.length() = "
 szOutputStrLngth2:    .asciz "s2.length() = "
 szOutputStrLngth3:    .asciz "s3.length() = "
@@ -34,10 +42,27 @@ szOutputCharAt:       .asciz "String_charAt(s2,4) = "
 szOutputStrStart1:    .asciz "String_startsWith_1(s1,11,\"hat.\") = " 
 szOutputStrStart2:    .asciz "String_startsWith_2(s1,\"Cat\") = " 
 szOutputStrEnds:      .asciz "String_endsWith(s1,\"in the hat.\") = "
+szOutputIndex1:       .asciz "String_indexOf_1(s2,'g') = "
+szOutputIndex2:       .asciz "String_indexOf_2(s2,'g',9) = "
+szOutputIndex3:       .asciz "String_indexOf_3(s2,\"eggs\") = "
+szOutputLastIndex1:   .asciz "String_lastIndexOf_1(s2,'g') = "
+szOutputLastIndex2:   .asciz "String_lastIndexOf_2(s2,'g',6) = "
+szOutputLastIndex3:   .asciz "String_lastIndexOf_3(s2,\"egg\") = "
+szOutputReplace1:     .asciz "String_replace(s1,'a','o') = "
+szOutputToLower:      .asciz "String_toLowerCase(s1) = "
+szOutputToUpper:      .asciz "String_toUpperCase(s1) = "
+szOutputConcat1:      .asciz "String_concat(s1, \" \");"
+szOutputConcat2:      .asciz "String_concat(s1, s2) = "
 
 szTest10Input:        .asciz "hat."
 szTest11Input:        .asciz "Cat"
 szTest12Input:        .asciz "in the hat."
+szTest13Input:        .asciz "g"
+szTest15Input:        .asciz "eggs"
+szTest18Input:        .asciz "egg"
+szTest19Input1:       .asciz "a"
+szTest19Input2:       .asciz "o"
+szTest22Input:        .asciz " "
 
 szString1:            .skip 21 
 szString2:            .skip 21 
@@ -49,6 +74,8 @@ chSQT:         .byte 0x27 //single quote character
 
     .text
 _start:
+    ldr     x0,=szStudentInfo
+    bl      putstring
 
     ldr     x0,=szPrompt1 //display prompt
     bl      putstring//branch and link putstring
@@ -433,6 +460,294 @@ stringEndsWith_false:
     bl      putstring
 
 test13:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputIndex1
+	bl      putstring
+
+    ldr     x0,=szString2
+    ldr     x1,=szTest13Input
+    ldrb	w1,[x1],#1
+
+    bl      String_indexOf_1
+
+    //else test13 was successful
+    ldr     x1,=szBuffer //converts sum to ascii
+    bl      int64asc //branch and link int 64 to ascii
+
+    ldr     x0,=szBuffer
+    bl      putstring
+
+
+    ldr     x0,=chLF
+	bl      putch
+
+    b       test14
+
+test14:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputIndex2
+	bl      putstring
+
+    ldr     x0,=szString2
+    ldr     x1,=szTest13Input
+    ldrb	w1,[x1],#1
+    mov     x2,#9
+
+    bl      String_indexOf_2
+
+    //else test14 was successful
+    ldr     x1,=szBuffer //converts sum to ascii
+    bl      int64asc //branch and link int 64 to ascii
+    
+    ldr     x0,=szBuffer
+    bl      putstring
+
+
+    ldr     x0,=chLF
+	bl      putch
+
+    b       test15
+
+test15:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputIndex3
+	bl      putstring
+
+    ldr     x0,=szString2
+    ldr     x1,=szTest15Input
+
+    bl      String_indexOf_3
+
+    //else test14 was successful
+    ldr     x1,=szBuffer //converts sum to ascii
+    bl      int64asc //branch and link int 64 to ascii
+    
+    ldr     x0,=szBuffer
+    bl      putstring
+
+
+    ldr     x0,=chLF
+	bl      putch
+
+    b       test16
+
+test16:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputLastIndex1
+	bl      putstring
+
+    ldr     x0,=szString2
+    ldr     x1,=szTest13Input
+    ldrb	w1,[x1],#1
+
+    bl      String_lastIndexOf_1
+
+    //else test16 was successful
+    ldr     x1,=szBuffer //converts sum to ascii
+    bl      int64asc //branch and link int 64 to ascii
+    
+    ldr     x0,=szBuffer
+    bl      putstring
+
+
+    ldr     x0,=chLF
+	bl      putch
+
+    b       test17
+
+test17:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputLastIndex2
+	bl      putstring
+
+    ldr     x0,=szString2
+    ldr     x1,=szTest13Input
+    ldrb	w1,[x1],#1
+    mov     x2,#6
+
+    bl      String_lastIndexOf_2
+
+    //else test16 was successful
+    ldr     x1,=szBuffer //converts sum to ascii
+    bl      int64asc //branch and link int 64 to ascii
+    
+    ldr     x0,=szBuffer
+    bl      putstring
+
+
+    ldr     x0,=chLF
+	bl      putch
+
+    b       test18
+
+test18:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputLastIndex3
+	bl      putstring
+
+    ldr     x0,=szString2
+    ldr     x1,=szTest18Input
+
+    bl      String_lastIndexOf_3
+
+    //else test16 was successful
+    ldr     x1,=szBuffer //converts sum to ascii
+    bl      int64asc //branch and link int 64 to ascii
+    
+    ldr     x0,=szBuffer
+    bl      putstring
+
+
+    ldr     x0,=chLF
+	bl      putch
+
+    b       test19
+
+test19:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputReplace1
+	bl      putstring
+
+	ldr     x0,=chQT
+	bl      putch
+
+    ldr     x0,=szString1
+
+    ldr     x1,=szTest19Input1
+    ldrb    w1,[x1],#1
+
+    ldr     x2,=szTest19Input2
+    ldrb    w2,[x2],#1
+
+    bl      String_replace
+
+    //ERROR HERE LOOK AT LAB7 wALT
+    ldr     x1, =szString1
+
+    ldr     x2,[x0] //loads first 8 bytes and stores into szString4
+	str     x2,[x1]
+    
+    ldr     x2,[x0,#8] //loads second 8 bytes and stores into szString4
+    str     x2,[x1,#8]
+
+	ldr     x0, =szString1
+    bl      putstring
+
+	ldr     x0,=chQT
+	bl      putch
+
+    ldr     x0,=chLF
+	bl      putch
+
+test20:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputToLower
+	bl      putstring
+
+	ldr     x0,=chQT
+	bl      putch
+
+    ldr     x0,=szString1
+
+    bl      String_toLowerCase
+
+    bl      putstring
+
+	ldr     x0,=chQT
+	bl      putch
+
+    ldr     x0,=chLF
+	bl      putch
+
+test21:
+	ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputToUpper
+	bl      putstring
+
+	ldr     x0,=chQT
+	bl      putch
+
+    ldr     x0,=szString1
+
+    bl      String_toUpperCase
+
+    ldr     x1, =szString1
+
+    ldr     x2,[x0] //loads first 8 bytes and stores into szString4
+	str     x2,[x1]
+    
+    ldr     x2,[x0,#8] //loads second 8 bytes and stores into szString4
+    str     x2,[x1,#8]
+
+    ldr     x0,=szString1
+    bl      putstring
+
+	ldr     x0,=chQT
+	bl      putch
+
+    ldr     x0,=chLF
+	bl      putch
+
+test22:
+    ldr     x0,=chLF
+	bl      putch
+
+   	ldr     x0,=szOutputConcat1
+	bl      putstring
+
+    ldr     x0,=chLF
+	bl      putch
+
+    ldr     x0,=szOutputConcat2
+	bl      putstring
+
+	ldr     x0,=chQT
+	bl      putch
+
+    ldr     x0,=szString1
+    ldr     x1,=szTest22Input
+
+    bl      String_concat
+
+    ldr     x1, =szString1
+
+    ldr     x2,[x0] //loads first 8 bytes and stores into szString4
+	str     x2,[x1]
+    
+    ldr     x2,[x0,#8] //loads second 8 bytes and stores into szString4
+    str     x2,[x1,#8]
+
+    ldr     x0,=szString1
+    ldr     x1,=szString2
+
+    bl      String_concat
+    
+
+    bl      putstring
+
+	ldr     x0,=chQT
+	bl      putch
+
+    ldr     x0,=chLF
+	bl      putch
 
 exit_sequence:
     //setup to end program
