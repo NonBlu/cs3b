@@ -180,7 +180,7 @@ string_equals_false1:
     bl      putstring
 
 test3:
-
+    //test String_equals_1 function
     ldr     x0,=szOutputEq2
     bl      putstring
     //load parameters for string_equals
@@ -205,6 +205,7 @@ string_equals_false2:
 
 
 test4:
+    //test String_equals_IC2 function
 	ldr     x0,=chLF
 	bl      putch
 
@@ -230,7 +231,7 @@ string_equals_IC_false1:
     bl      putstring
 
 test5:
-
+    //test String_equals_IC2 function
     ldr     x0,=szOutputEqIC2
     bl      putstring
     //load parameters for string_equalsIgnoreCase
@@ -253,6 +254,7 @@ string_equals_IC_false2:
     bl      putstring
 
 test6:
+    //test String_copy function
 	ldr     x0,=chLF
 	bl      putch
     //Now testing String_copy
@@ -262,7 +264,7 @@ test6:
     ldr     x0,=szString1
 	bl      String_copy
 	
-    //ERROR HERE LOOK AT LAB7 wALT
+    //Load string4 value
     ldr     x1, =szString4
 
     ldr     x2,[x0] //loads first 8 bytes and stores into szString4
@@ -271,6 +273,7 @@ test6:
     ldr     x2,[x0,#8] //loads second 8 bytes and stores into szString4
     str     x2,[x1,#8]
 
+    //prompt user
 	ldr     x0,=szPromptSz1
 	bl      putstring
 
@@ -283,6 +286,7 @@ test6:
 	ldr     x0,=szPromptSz4
 	bl      putstring
 
+    //print new value in string4
 	ldr     x0, =szString4
 	bl      putstring
 
@@ -290,6 +294,7 @@ test6:
 	bl      putch
 
 test7:
+    //test String_substring_1 function
 	ldr     x0,=chLF
 	bl      putch
 
@@ -298,11 +303,12 @@ test7:
 
 	ldr     x0,=chQT
 	bl      putch
-
+    //load parameters for the function
     ldr     x0,=szString3
     mov     x1,#4
     mov     x2,#14
 
+    //call substring func
     bl      String_substring_1
 
     cbz     x0, substring1_fail
@@ -321,6 +327,7 @@ substring1_fail:
     bl      putstring
 
 test8:
+    //test String_substring_2 function
 	ldr     x0,=chLF
 	bl      putch
 
@@ -329,10 +336,10 @@ test8:
 
 	ldr     x0,=chQT
 	bl      putch
-
+    //Load parameters
     ldr     x0,=szString3
     mov     x1,#7
-
+    //call func
     bl      String_substring_2
 
     cbz     x0, substring2_fail
@@ -351,6 +358,7 @@ substring2_fail:
     bl      putstring
 
 test9:
+    //test String_charAt function
 	ldr     x0,=chLF
 	bl      putch
 
@@ -359,10 +367,11 @@ test9:
 
 	ldr     x0,=chSQT
 	bl      putch
-
+    //load parameters
     ldr     x0,=szString2
     mov     x1,#4
 
+    //call func
     bl      String_charAt
 
     cbz     x0, charat_fail
@@ -381,6 +390,7 @@ charat_fail:
     bl      putstring
 
 test10:
+    //test String_startsWith_1 function
     ldr     x0,=chLF
     bl      putch
 
@@ -392,7 +402,7 @@ test10:
     mov     x1,#11
     ldr     x2,=szTest10Input
 
-    //call string_equalsIgnoreCase function
+    //call function
     bl      String_startsWith_1
 
     //check result
@@ -408,6 +418,7 @@ stringStartsWith1_false:
     bl      putstring
 
 test11:
+    //test String_startsWith_2 function
     ldr     x0,=chLF
     bl      putch
 
@@ -434,13 +445,14 @@ stringStartsWith2_false:
     bl      putstring
 
 test12:
+    //test String_endsWith function
     ldr     x0,=chLF
     bl      putch
 
     ldr     x0,=szOutputStrEnds
     bl      putstring
 
-    //load parameters for String_startsWith_2
+    //load parameters
     ldr     x0,=szString1
     ldr     x1,=szTest12Input
 
@@ -460,19 +472,20 @@ stringEndsWith_false:
     bl      putstring
 
 test13:
+    //test String_indexOf_1 function
 	ldr     x0,=chLF
 	bl      putch
 
    	ldr     x0,=szOutputIndex1
 	bl      putstring
-
+    //load parameters
     ldr     x0,=szString2
     ldr     x1,=szTest13Input
     ldrb	w1,[x1],#1
-
+    //call function
     bl      String_indexOf_1
 
-    //else test13 was successful
+    // test13 was successful
     ldr     x1,=szBuffer //converts sum to ascii
     bl      int64asc //branch and link int 64 to ascii
 
@@ -486,17 +499,19 @@ test13:
     b       test14
 
 test14:
+    //test String_indexOf_2 function
 	ldr     x0,=chLF
 	bl      putch
 
    	ldr     x0,=szOutputIndex2
 	bl      putstring
 
+    //load parameters
     ldr     x0,=szString2
     ldr     x1,=szTest13Input
     ldrb	w1,[x1],#1
     mov     x2,#9
-
+    //call func
     bl      String_indexOf_2
 
     //else test14 was successful
@@ -513,15 +528,16 @@ test14:
     b       test15
 
 test15:
+    //test String_indexOf_3 function
 	ldr     x0,=chLF
 	bl      putch
 
    	ldr     x0,=szOutputIndex3
 	bl      putstring
-
+    //load parameters
     ldr     x0,=szString2
     ldr     x1,=szTest15Input
-
+    //call func
     bl      String_indexOf_3
 
     //else test14 was successful
@@ -538,16 +554,19 @@ test15:
     b       test16
 
 test16:
+    //test String_lastIndexOf_1 function
 	ldr     x0,=chLF
 	bl      putch
 
    	ldr     x0,=szOutputLastIndex1
 	bl      putstring
 
+    //load parameters
     ldr     x0,=szString2
     ldr     x1,=szTest13Input
     ldrb	w1,[x1],#1
 
+    //call function
     bl      String_lastIndexOf_1
 
     //else test16 was successful
@@ -557,24 +576,25 @@ test16:
     ldr     x0,=szBuffer
     bl      putstring
 
-
     ldr     x0,=chLF
 	bl      putch
 
     b       test17
 
 test17:
+    //test String_lastIndexOf_2 function
 	ldr     x0,=chLF
 	bl      putch
 
    	ldr     x0,=szOutputLastIndex2
 	bl      putstring
-
+    //load parameters
     ldr     x0,=szString2
     ldr     x1,=szTest13Input
     ldrb	w1,[x1],#1
     mov     x2,#6
 
+    //call func
     bl      String_lastIndexOf_2
 
     //else test16 was successful
@@ -591,18 +611,20 @@ test17:
     b       test18
 
 test18:
+    //test String_lastIndexOf_3 function
 	ldr     x0,=chLF
 	bl      putch
 
    	ldr     x0,=szOutputLastIndex3
 	bl      putstring
-
+    //load parameters
     ldr     x0,=szString2
     ldr     x1,=szTest18Input
 
+    //call function
     bl      String_lastIndexOf_3
 
-    //else test16 was successful
+    //else test18 was successful
     ldr     x1,=szBuffer //converts sum to ascii
     bl      int64asc //branch and link int 64 to ascii
     
@@ -616,6 +638,7 @@ test18:
     b       test19
 
 test19:
+    //test String_replace function
 	ldr     x0,=chLF
 	bl      putch
 
@@ -624,7 +647,7 @@ test19:
 
 	ldr     x0,=chQT
 	bl      putch
-
+    //load parameters
     ldr     x0,=szString1
 
     ldr     x1,=szTest19Input1
@@ -632,12 +655,13 @@ test19:
 
     ldr     x2,=szTest19Input2
     ldrb    w2,[x2],#1
-
+    //call function
     bl      String_replace
 
-    //ERROR HERE LOOK AT LAB7 wALT
+    //store return
     ldr     x1, =szString1
 
+    //storing return!
     ldr     x2,[x0] //loads first 8 bytes and stores into szString4
 	str     x2,[x1]
     
@@ -654,6 +678,8 @@ test19:
 	bl      putch
 
 test20:
+    //test String_toLower function
+
 	ldr     x0,=chLF
 	bl      putch
 
@@ -662,9 +688,9 @@ test20:
 
 	ldr     x0,=chQT
 	bl      putch
-
+    //load parameters
     ldr     x0,=szString1
-
+    //call function
     bl      String_toLowerCase
 
     bl      putstring
@@ -676,6 +702,7 @@ test20:
 	bl      putch
 
 test21:
+    //test String_toUpper function
 	ldr     x0,=chLF
 	bl      putch
 
@@ -684,11 +711,12 @@ test21:
 
 	ldr     x0,=chQT
 	bl      putch
-
+    //load parameters
     ldr     x0,=szString1
 
     bl      String_toUpperCase
 
+    //store return into sz1
     ldr     x1, =szString1
 
     ldr     x2,[x0] //loads first 8 bytes and stores into szString4
@@ -707,6 +735,7 @@ test21:
 	bl      putch
 
 test22:
+    //test String_concat function
     ldr     x0,=chLF
 	bl      putch
 
@@ -722,11 +751,14 @@ test22:
 	ldr     x0,=chQT
 	bl      putch
 
+    //first function call
     ldr     x0,=szString1
     ldr     x1,=szTest22Input
 
+    //call function
     bl      String_concat
 
+    //store return
     ldr     x1, =szString1
 
     ldr     x2,[x0] //loads first 8 bytes and stores into szString4
@@ -735,9 +767,11 @@ test22:
     ldr     x2,[x0,#8] //loads second 8 bytes and stores into szString4
     str     x2,[x1,#8]
 
+    //load parameters for second function call
     ldr     x0,=szString1
     ldr     x1,=szString2
 
+    //call function
     bl      String_concat
     
 
@@ -749,6 +783,7 @@ test22:
     ldr     x0,=chLF
 	bl      putch
 
+//exit
 exit_sequence:
     //setup to end program
     mov X0, #0
